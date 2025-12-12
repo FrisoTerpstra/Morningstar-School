@@ -1,0 +1,39 @@
+<!-- SQL Database -->
+<!-- Use CREATE TABLE  (IF NOT EXISTS)
+ Attributes:
+ [NOT] NULL default is NULL
+ AUTO_INCREMENT
+ DEFAULT
+ 
+ Examp:
+ CREATE TABLE IF NOT EXISTS 
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') DEFAULT 'Other',
+    department VARCHAR(50) DEFAULT 'Unassigned',
+    hire_date NOT NULL DEFAULT CURRENT_DATE
+ );
+
+ Constraints:
+ UNIQUE (primary keys have this by default) allows only unique values in the column
+ INDEX searched allot, and doesn't get changed allot, Examp: password and email.
+ CHECK is a constraint build by the user them self examp: age > 18
+ exmaple: CONSTRAINT chk_age CHECK (age >= 18 AND City='Emmen' )
+ CONSTRAINT PK_employee_id PRIMARY KEY (employee_id);
+ CONSTRAINT FK_employee_department FOREIGN KEY (department) REFERENCES departments(department_name);
+ ON UPDATE [CASCADE/NO ACTION] also updates all refrences in other tables
+ ON DELETE [CASCADE/NO ACTION] also deletes all refrences in other tables
+ 
+
+<?php
+    $dbHandler = null;
+    try{
+        $dbHandler = new PDO("mysql:host=mysql;dbname=dbe_demo;charset=utf8", "root", "qwerty");
+    }catch(Exception $ex){
+        printError($ex);
+    }
+
+    var_dump($dbHandler);
+    
+?>
