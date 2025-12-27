@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morningstar Website</title>
-    <link rel="stylesheet" href="../Morningstar-School/morningStarWebsite.css">
+    <link rel="stylesheet" href="../css/morningstarWebsite.css">
 </head>
 <body>
     
     <div class="logo">
-        <img src="../Morningstar-School/images/Morningstar_logo.png">
+        <img src="../images/Morningstar_logo.png">
         <h1 class="text">Welcome to the Morningstar Website</h1>
     </div>
     
@@ -18,7 +18,7 @@
     </header>
 
     <div class="sidebar" id="sidebar">
-        <img src="../Morningstar-School/images/Morningstar_logo.png" class="sidebar-img">
+        <img src="../images/Morningstar_logo.png" class="sidebar-img">
         <div class="sidebar-content">
             <h2 class="but">Menu</h2>
             <ul class="but">
@@ -36,6 +36,6 @@
             sidebar.classList.toggle('is-active');
         });
     </script>
-    
+
 </body>
 </html>
