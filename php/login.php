@@ -30,14 +30,10 @@
                 $stmt = $dbhandler->prepare("SELECT * FROM `employee` WHERE username = :username"); // prepare the query
                 $stmt->bindParam(":username", $username, PDO::PARAM_STR); // bind the username from the self made variable to the ':username' in the query from the database
                 $stmt->execute(); // execute the query
-
                 $user = $stmt->fetch(PDO::FETCH_ASSOC); // fetch the user data as an associative array (basicly get all the data from that user)
-                
                 if($user && $passwordd === $user['passwordd']){ // check if user exists and password matches
-                    
                     $_SESSION['employee_id'] = $user['employee_id']; // set session variable for user id
                     $_SESSION['username'] = $user['username']; // set session variable for username
-                    
                     header("Location: entry.php"); // redirect to entry page
                     exit(); // exit to make sure no code is run after the redirect
                 }else{
@@ -63,6 +59,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
 </head>
 <body>

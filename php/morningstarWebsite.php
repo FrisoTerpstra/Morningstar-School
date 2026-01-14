@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <script>
+    <script> // JavaScript to toggle the sidebar
         const toggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
 
