@@ -22,8 +22,8 @@
         <div class="sidebar-content">
             <h2 class="but">Menu</h2>
             <ul class="but">
-                <li><a href="#">DataBase</a></li>
-                <li><a href="#">Users</a></li>
+                <li><a href="register.php">Register</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
         </div>
     </div>
