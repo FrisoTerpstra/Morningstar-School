@@ -1,76 +1,84 @@
--- phpMyAdmin SQL Dump
--- version 5.2.2
--- https://www.phpmyadmin.net/
---
--- Host: mysql
--- Generation Time: Jan 15, 2026 at 12:04 PM
--- Server version: 12.0.2-MariaDB-ubu2404
--- PHP Version: 8.2.29
+CREATE Database if not exists `Morningstar`
+DEFAULT CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
+USE `Morningstar`;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE TABLE `Teacher` (
+    `TeacherID` INT AUTO_INCREMENT,
+    `Name` VARCHAR(255) NOT NULL,
+    `Email` VARCHAR(255) NOT NULL,
+    `Phone` VARCHAR(255) NOT NULL,
+    `Subject` VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_teacher_id PRIMARY KEY(`TeacherID`)
+);
 
+CREATE TABLE `Student` (
+    `StudentID` INT AUTO_INCREMENT,
+    `Name` VARCHAR(255) NOT NULL,
+    `Class` VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_student_id PRIMARY KEY(`StudentID`)
+);
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE TABLE `Attendance` (
+    `AttendanceID` INT AUTO_INCREMENT,
+    `TeacherID` INT NOT NULL,
+    `StudentID` INT NOT NULL,
+    `Date` Date NOT NULL,
+    `Status` VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_attendance_id PRIMARY KEY(`AttendanceID`),
+    CONSTRAINT FK_teacher_id FOREIGN KEY(`TeacherID`) REFERENCES `Teacher`(`TeacherID`)       
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_student_id FOREIGN KEY(`StudentID`)  REFERENCES `Student`(`StudentID`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
---
--- Database: `Morningstar`
---
+CREATE table `Progress` (
+    `ProgressID` INT AUTO_INCREMENT,
+    `StudentID` INT NOT NULL,
+    `TeacherID` INT NOT NULL,
+    `Date` Date NOT NULL,
+    `Notes` Text NOT NULL,
+    CONSTRAINT PK_progress_id PRIMARY KEY(`ProgressID`),
+    CONSTRAINT FK_teacher_id_progress FOREIGN KEY(`TeacherID`) REFERENCES `Teacher`(`TeacherID`)       
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT FK_student_id_progress FOREIGN KEY(`StudentID`)  REFERENCES `Student`(`StudentID`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
--- --------------------------------------------------------
+CREATE table `Admin` (
+    `AdminID` INT AUTO_INCREMENT,
+    `Name` VARCHAR(255) NOT NULL,
+    `Email` VARCHAR(255) NOT NULL,
+    `Role`  VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_admin_id PRIMARY KEY(`AdminID`)
+);
 
---
--- Table structure for table `employee`
---
+CREATE table `Announcement` (
+    `AnnouncementID` INT AUTO_INCREMENT,
+    `AdminID` INT NOT NULL,
+    `Title` VARCHAR(255) NOT NULL,
+    `Content` Text NOT NULL,
+    `PublishingDate`  DATETIME NOT NULL,
+    CONSTRAINT PK_announcement_id PRIMARY KEY(`AnnouncementID`),
+    CONSTRAINT FK_Admin_id FOREIGN KEY(`AdminID`) REFERENCES `Admin`(`AdminID`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
 CREATE TABLE `employee` (
-  `employee_id` int(11) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `passwordd` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+    `employeeID` INT AUTO_INCREMENT,
+    `firstName` VARCHAR(255) NOT NULL,
+    `lastName` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
+    `passwordd` VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_employee_id PRIMARY KEY(`employeeID`)
+);
 
---
--- Dumping data for table `employee`
---
 
-INSERT INTO `employee` (`employee_id`, `firstName`, `lastName`, `username`, `passwordd`) VALUES
-(1, 'Friso', 'Terpstra', 'Friso', '4c,UEA83'),
-(2, 'Jakub', 'Maziol', 'Jakub', 'Qwerty123'),
-(8, 'larry', 'larry', 'larry', 'YOYO'),
-(16, 'Caleb', 'Gaitou', 'Caleb', '123'),
-(21, 'Rodrigo', 'akaka', 'Rodrigo', '123'),
-(22, 'wasup', 'yoyo', 'many', '123'),
-(23, 'Friso', 'Terpstra', 'Johns', '123'),
-(24, 'Friso', 'Terpstra', 'lala', '123');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `employee`
---
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`employee_id`),
-  ADD UNIQUE KEY `uniq_username` (`username`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `employee`
---
-ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
